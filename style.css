@@ -18,7 +18,7 @@ header h1{
     transition: all 1s;
 }
 .text:hover{
-    color: rgb(255, 0, 0);
+    color: rgb(156, 73, 73);
 }
 .designations {
     width: max-content;
