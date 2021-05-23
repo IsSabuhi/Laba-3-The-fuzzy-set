@@ -1,154 +1,149 @@
-let Arr = [[]];
+let arr = [[]];
 
-// Заполнение массива нолями "заглушками"
-const generateTable = () => {
-  for (let i = 0; i < 8; i++) {
-    Arr[i] = [];
-    for (let j = 0; j < 8; j++) {
-      if (i == j) Arr[i][j] = 1;
-      else Arr[i][j] = 0;
+for (let i = 0; i < 10; i++) {
+    arr[i] = [];
+    for (let j = 0; j < 10; j++) {
+        if (i == j){
+            arr[i][j] = 1
+        }
+        else arr[i][j] = 0;
+    }   
+}
+makeTableHTML(arr)
+function makeTableHTML(myArray) {
+    let result = "<table border=1>";
+    result += '<tr><td></td>';
+
+   for (let i = 0; i < myArray.length; i++) {
+        result += `<td>X${i + 1}</td>`;
     }
-  }
+    result += '</tr>';
 
-  createTable(Arr);
-};
+    for (let i = 0; i < myArray.length; i++) {
+        result += `<tr><td>X${i + 1}</td>`;
+        for (let j = 0; j < myArray.length; j++) {
+          if (i == j)
+            result += `<td><input type="number" value="${myArray[i][j]}" readonly/></td>`;
+          else
+            result += `<td><input type="number" onchange="symmetricTableFill(${i}, ${j}, value)" value="${myArray[i][j]}"/></td>`;
+        }
+        result += '</tr>';
+      }
+    
+      result += '</table>';
+    
+    document.getElementById('table').innerHTML = result
+}
 
-// Генерация таблицы
-const createTable = (arr) => {
-  let html = '<table border="1">';
-
-  html += '<tr><td></td>';
-  for (let i = 0; i < 8; i++) {
-    html += `<td class="tableElem">x${i + 1}</td>`;
-  }
-  html += '</tr>';
-
-  for (let i = 0; i < 8; i++) {
-    html += `<tr><td class="tableElem">x${i + 1}</td>`;
-    for (let j = 0; j < 8; j++) {
-      if (i == j)
-        html += `<td><input type="number" value="${arr[i][j]}" readonly/></td>`;
-      else
-        html += `<td><input type="number" onchange="autoFill(${i}, ${j}, this.value)" value="${arr[i][j]}"/></td>`;
+function symmetricTableFill(i, j, n){
+    let result;
+    arr[i][j] = n;
+    if (n != 0){
+        result = 1 / n;
     }
-    html += '</tr>';
-  }
+    else res = 0;
+    arr[j][i] = result
+    arr = arr.map((subArr) => subArr.map((x) => Number(x)));
+    makeTableHTML(arr)
+    vectors(arr)
+    console.log(vectors(arr))
+    indexes(vectors(arr))
 
-  html += '</table>';
-
-  document.getElementById('content').innerHTML = html;
-};
-
-// Симметричное автозаполнение
-const autoFill = (i, j, e) => {
-  let res;
-  Arr[i][j] = e;
-  if (e == 0) res = 0;
-  else res = 1 / e;
-  Arr[j][i] = res;
-  Arr = Arr.map((subArr) => subArr.map((x) => Number(x)));
-  createTable(Arr);
-  vectors();
-};
-
-// Векторы
-function vectors() {
-  let k = vectorK(Arr);
-  let w = vectorW(k);
-  let aw = vectorAw(w);
-  let l = vectorL(aw, w);
-  indexes(l);
 }
 
-// Вектор K
-function vectorK(arr) {
-  let s = [];
-  for (i = 0; i < 8; i++) {
-    let sum = 0;
-    for (let j = 0; j < 8; j++) {
-      sum += arr[j][i];
+
+function vectors(arr){
+    
+    // вектор K - массив суммы всех столбцов
+
+    let vectorK = []
+    
+    for (let i = 0; i < arr.length; i++) {
+        let sum = 0
+        for (let j = 0; j < arr.length; j++) {
+            sum += arr[j][i];
+        }
+        vectorK.push(sum)
+        document.getElementById(`k${i}`).innerHTML = sum;
     }
-    s.push(sum);
-  }
 
-  for (let i = 0; i < 8; i++) {
-    document.getElementById(`k${i}`).innerHTML = s[i];
-  }
-  return s;
-}
 
-// Вектор W
-function vectorW(arr) {
-  let w = [];
-  for (let i = 0; i < 8; i++) {
-    w.push(1 / arr[i]);
-  }
+    // вектор W - 1 делим на каждый элемент К
 
-  let max = getMaxOfArray(w);
-  w = w.map((x) => x / max);
+    let vectorW = []
 
-  for (let i = 0; i < 8; i++) {
-    document.getElementById(`w${i}`).innerHTML = w[i];
-  }
-
-  return w;
-}
-
-// Нахождение максимального элемента в массиве
-function getMaxOfArray(numArray) {
-  return Math.max.apply(null, numArray);
-}
-
-// Вектор Aw
-function vectorAw(w) {
-  let Aw = [];
-  for (let i = 0; i < 8; i++) {
-    let sum = 0;
-    for (let j = 0; j < 8; j++) {
-      sum += Arr[i][j] * w[i];
+    for (let i = 0; i < vectorK.length; i++) {
+        vectorW.push(1 / vectorK[i]);
+        
     }
-    Aw.push(sum);
-  }
 
-  for (let i = 0; i < 8; i++) {
-    document.getElementById(`aw${i}`).innerHTML = Aw[i];
-  }
+    // нормализация (делим все элементы вектора W на максимальный)
+    
+    let maxOfW = Math.max.apply(null, vectorW)
 
-  return Aw;
+    vectorW = vectorW.map((n) => n / maxOfW);
+
+    for (let i = 0; i < vectorW.length; i++) {
+        document.getElementById(`w${i}`).innerHTML = vectorW[i];
+        
+    }
+
+
+    // вектор R = A * w (умножаем матрицу на вектор)
+
+    let vectorR = MatrixVectorMultiplication(arr, vectorW)
+
+    for (let i = 0; i < vectorR.length; i++) {
+        document.getElementById(`r${i}`).innerHTML = vectorR[i];
+        
+    }
+
+    // расчет вектора lambda (поэлементное деление вектора R на вектор w)
+
+    let lambda = []
+    
+    for (let i = 0; i < vectorR.length; i++) {
+        elem = vectorR[i] / vectorW[i];
+        lambda.push(elem);
+        document.getElementById(`l${i}`).innerHTML = elem;
+        
+    }
+
+    return lambda
 }
 
-// Вектор Л
-function vectorL(aw, w) {
-  let L = [];
-  for (let i = 0; i < 8; i++) {
-    L.push(aw[i] / w[i]);
-  }
 
-  for (let i = 0; i < 8; i++) {
-    document.getElementById(`L${i}`).innerHTML = L[i];
-  }
+function indexes(lambda){
+    let sumOfLambda = 0;
+    for (let i = 0; i < lambda.length; i++) {
+        sumOfLambda += lambda[i];
+    }
 
-  return L;
+    let lambdaMax = sumOfLambda / lambda.length;
+    
+    let b = (lambdaMax - lambda.length) / lambda.length * 100;
+    let IS = (lambdaMax - lambda.length) / (lambda.length - 1);
+    let SS = 1.49; // по таблице
+    let OS = (IS / SS) * 100;
+
+    document.getElementById('b').innerHTML = b;
+    document.getElementById('lmax').innerHTML = lambdaMax;
+    document.getElementById('is').innerHTML = IS;
+    document.getElementById('ss').innerHTML = SS;
+    document.getElementById('os').innerHTML = OS;
+
 }
 
-// Индексы и параметры
-function indexes(L) {
-  let lMax, IS, b, OS;
 
-  let sum = 0;
-  for (let i = 0; i < 8; i++) {
-    sum += L[i];
-  }
-  lMax = sum / 8;
-
-  b = (lMax - 8 / 8) * 100;
-
-  IS = (lMax - 8) / (8 - 1);
-
-  OS = (IS / 1.41) * 100;
-
-  document.getElementById('Lmax').innerHTML = lMax;
-  document.getElementById('b').innerHTML = b;
-  document.getElementById('is').innerHTML = IS;
-  document.getElementById('os').innerHTML = OS;
+// умножение матрицы на вектор
+function MatrixVectorMultiplication(A, B) {
+    let result = []
+    for (let i = 0; i < A.length; i++) {
+        let elem = 0
+        for (let j = 0; j < A.length; j++) {
+            elem += A[i][j] * B[j]
+        }
+        result.push(elem)
+    }
+    return result
 }

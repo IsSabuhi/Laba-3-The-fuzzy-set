@@ -1,199 +1,226 @@
 <!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lab3</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body onload="generateTable()">
-    
-    <header>
-        <h1 align="center">Лабораторная работа №2 по нечеткой логике</h1>
-    </header>
+<html lang="en">
 
-    <h2 align="center">Вариант 4</h2>
-    <span class="text">
-        Сформируйте универсальное множество составов ячеистобетонных смесей. 
-        Используя метод парных сравнений, определите принадлежность элементов 
-        сформированного множества нечеткому множеству «Невысокий расход извести-кипелки, 
-        необходимый для замеса». Оцените точность определения степеней принадлежности отдельных 
-        элементов указанному нечеткому множеству.
-    </span>
-<br>
-    <div class="main">
-      <div class="table">
-        <table>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>lab3</title>
+</head>
+
+<header>
+    <h1 align="center">Лабораторная работа №2 по нечеткой логике</h1>
+</header>
+
+<h2 align="center">Вариант 4</h2>
+<span class="text">
+    Сформируйте универсальное множество составов ячеистобетонных смесей. 
+    Используя метод парных сравнений, определите принадлежность элементов 
+    сформированного множества нечеткому множеству «Невысокий расход извести-кипелки, 
+    необходимый для замеса». Оцените точность определения степеней принадлежности отдельных 
+    элементов указанному нечеткому множеству.
+</span>
+
+<body>
+    <div class="">
+        <table class="table">
             <tr>
                 <td>Норма расхода материала, кг</td>
                 <td colspan="10">Вид ячеистого бетона*</td>
             </tr>
             <tr>
                 <td rowspan="2">Известь-кипелка активностью 70%</td>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>10</td>
+                <td class="t0">1</td>
+                <td class="t0">2</td>
+                <td class="t0">3</td>
+                <td class="t0">4</td>
+                <td class="t0">5</td>
+                <td class="t0">6</td>
+                <td class="t0">7</td>
+                <td class="t0">8</td>
+                <td class="t0">9</td>
+                <td class="t0">10</td>
             </tr>
             <tr>
-                <td>72</td>
-                <td>110</td>
-                <td>130</td>
-                <td>142</td>
-                <td>162</td>
-                <td>72</td>
-                <td>110</td>
-                <td>130</td>
-                <td>142</td>
-                <td>162</td>
+                <td class="t1">72</td>
+                <td class="t1">110</td>
+                <td class="t1">130</td>
+                <td class="t1">142</td>
+                <td class="t1">162</td>
+                <td class="t1">72</td>
+                <td class="t1">110</td>
+                <td class="t1">130</td>
+                <td class="t1">142</td>
+                <td class="t1">162</td>
             </tr>
         </table>
-      </div>
 
-      <div class="panel">
+        <fieldset class="designations">
+          <legend>Обозначения</legend>
+          <p>x1 – газосиликатобетон средней плотностью 350 кг/м3;</p>
+          <p>x2 – газосиликатобетон средней плотностью 500 кг/м3;</p>
+          <p>x3 – газосиликатобетон средней плотностью 600 кг/м3;</p>
+          <p>x4 – газосиликатобетон средней плотностью 700 кг/м3;</p>
+          <p>x5 – газосиликатобетон средней плотностью 800 кг/м3;</p>
+          <p>x6 – газозолосиликатобетон средней плотностью 350 кг/м3;</p>
+          <p>x7 – газозолосиликатобетон средней плотностью 500 кг/м3;</p>
+          <p>x8 – газозолосиликатобетон средней плотностью 600 кг/м3;</p>
+          <p>x9 – газозолосиликатобетон средней плотностью 700 кг/м3;</p>
+          <p>x10 – газозолосиликатобетон средней плотностью 800 кг/м3;</p>
+      </fieldset>
+      
+      </div>
+<br>    
+    <div class="main-table" id="table"></div>
+
+    <div class="soon">
+        <table border="1px">
+            <caption>
+                Вектор K
+            </caption>
+            <tr>
+                <td id="k0"></td>
+                <td id="k1"></td>
+                <td id="k2"></td>
+                <td id="k3"></td>
+                <td id="k4"></td>
+                <td id="k5"></td>
+                <td id="k6"></td>
+                <td id="k7"></td>
+                <td id="k8"></td>
+                <td id="k9"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="soon">
+        <table class="soon" border="1px">
+            <caption>
+                Вектор W
+            </caption>
+            <tr>
+                <td id="w0"></td>
+            </tr>
+            <tr>
+                <td id="w1"></td>
+            </tr>
+            <tr>
+                <td id="w2"></td>
+            </tr>
+            <tr>
+                <td id="w3"></td>
+            </tr>
+            <tr>
+                <td id="w4"></td>
+            </tr>
+            <tr>
+                <td id="w5"></td>
+            </tr>
+            <tr>
+                <td id="w6"></td>
+            </tr>
+            <tr>
+                <td id="w7"></td>
+            </tr>
+            <tr>
+                <td id="w8"></td>
+            </tr>
+            <tr>
+                <td id="w9"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="soon">
+        <table class="soon" border="1px">
+            <caption>
+                Вектор R
+            </caption>
+            <tr>
+                <td id="r0"></td>
+            </tr>
+            <tr>
+                <td id="r1"></td>
+            </tr>
+            <tr>
+                <td id="r2"></td>
+            </tr>
+            <tr>
+                <td id="r3"></td>
+            </tr>
+            <tr>
+                <td id="r4"></td>
+            </tr>
+            <tr>
+                <td id="r5"></td>
+            </tr>
+            <tr>
+                <td id="r6"></td>
+            </tr>
+            <tr>
+                <td id="r7"></td>
+            </tr>
+            <tr>
+                <td id="r8"></td>
+            </tr>
+            <tr>
+                <td id="r9"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="soon">
+        <table class="soon" border="1px">
+            <caption>
+                Вектор λ
+            </caption>
+            <tr>
+                <td id="l0"></td>
+            </tr>
+            <tr>
+                <td id="l1"></td>
+            </tr>
+            <tr>
+                <td id="l2"></td>
+            </tr>
+            <tr>
+                <td id="l3"></td>
+            </tr>
+            <tr>
+                <td id="l4"></td>
+            </tr>
+            <tr>
+                <td id="l5"></td>
+            </tr>
+            <tr>
+                <td id="l6"></td>
+            </tr>
+            <tr>
+                <td id="l7"></td>
+            </tr>
+            <tr>
+                <td id="l8"></td>
+            </tr>
+            <tr>
+                <td id="l9"></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="soon">
         <fieldset>
-          <legend>Показатели</legend>
+          <legend>Показатели согласованности</legend>
           <ul>
-            <li>Лmax =<span id="Lmax"></span></li>
+            <li>λ<sub>max</sub> =<span id="lmax"></span></sub>
             <li>b =<span id="b"></span>%</li>
             <li>ИС =<span id="is"></span></li>
-            <li>СС = 1.41</li>
+            <li>СС = <span id="ss"></span></li>
             <li>ОС =<span id="os"></span>%</li>
           </ul>
         </fieldset>
       </div>
-    </div>
-    
-    <div id="content" class="tableNew tableStyle"></div>
-    <div class="vectors">
-
-      <span class="X">X</span>
-
-      <div id="vectorWcontent" class="vectorW tableStyle">
-        <table class="forTr vectorTd">
-          <caption>
-            Вектор W
-          </caption>
-          <tr>
-            <td id="w0"></td>
-          </tr>
-          <tr>
-            <td id="w1"></td>
-          </tr>
-          <tr>
-            <td id="w2"></td>
-          </tr>
-          <tr>
-            <td id="w3"></td>
-          </tr>
-          <tr>
-            <td id="w4"></td>
-          </tr>
-          <tr>
-            <td id="w5"></td>
-          </tr>
-          <tr>
-            <td id="w6"></td>
-          </tr>
-          <tr>
-            <td id="w7"></td>
-          </tr>
-        </table>
-      </div>
-
-      <span class="equal">=</span>
-
-      <div id="vectorAwcontent" class="vectorAw tableStyle">
-        <table class="forTr vectorTd">
-          <caption>
-            Вектор Aw
-          </caption>
-          <tr>
-            <td id="aw0"></td>
-          </tr>
-          <tr>
-            <td id="aw1"></td>
-          </tr>
-          <tr>
-            <td id="aw2"></td>
-          </tr>
-          <tr>
-            <td id="aw3"></td>
-          </tr>
-          <tr>
-            <td id="aw4"></td>
-          </tr>
-          <tr>
-            <td id="aw5"></td>
-          </tr>
-          <tr>
-            <td id="aw6"></td>
-          </tr>
-          <tr>
-            <td id="aw7"></td>
-          </tr>
-        </table>
-      </div>
-
-      <span class="equalArrow">=></span>
-     
-      <div id="vectorLcontent" class="vectorL tableStyle">
-        <table class="forTr vectorTd">
-          <caption>
-            Вектор Л
-          </caption>
-          <tr>
-            <td id="L0"></td>
-          </tr>
-          <tr>
-            <td id="L1"></td>
-          </tr>
-          <tr>
-            <td id="L2"></td>
-          </tr>
-          <tr>
-            <td id="L3"></td>
-          </tr>
-          <tr>
-            <td id="L4"></td>
-          </tr>
-          <tr>
-            <td id="L5"></td>
-          </tr>
-          <tr>
-            <td id="L6"></td>
-          </tr>
-          <tr>
-            <td id="L7"></td>
-          </tr>
-        </table>
-      </div>
-
-    </div>
-    <div id="vectorKcontent" class="vectorK tableStyle">
-      <table>
-        <caption>
-          Вектор k
-        </caption>
-        <tr>
-          <td id="k0"></td>
-          <td id="k1"></td>
-          <td id="k2"></td>
-          <td id="k3"></td>
-          <td id="k4"></td>
-          <td id="k5"></td>
-          <td id="k6"></td>
-          <td id="k7"></td>
-        </tr>
-      </table>
-    </div>
     <script src="script.js"></script>
-  </body>
+</body>
+
 </html>
