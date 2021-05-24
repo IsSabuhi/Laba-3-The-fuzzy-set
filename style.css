@@ -26,18 +26,19 @@ tr {
     display: block;
     text-align: center;
     position: relative;
-    border: 2px;
-    left: 10px;
+    border: 1px;
+    left: 80px;
   }
   .table td,
   th {
     padding: 4px 15px;
     border: 1px solid #ccc;
-  }
+  } 
   .table td {
     background: #84aacc;
     border-radius: 7px;
     text-align-last: center;
+    font-weight: bold;
   }
   .table td.t0 {
     border-radius: 4px;
@@ -47,11 +48,47 @@ tr {
   }
   .text {
     color: #000000;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
   }
   .designations {
-    width: 30%;
     float: right;
-    font-size: 15px;
+    font-size: 20px;
+    position: relative;
+    top: 14px;
+    left: -75px;
+    font-weight: bold;
   }
+  .soon {
+    margin-right: 45px;
+  }
+  .soon td{
+    width: 63px;
+    height: 20px;
+  }
+  .Blocksoon {
+    display: flex;
+  }
+.Psoon {
+  position: initial;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  white-space: nowrap;
+}
+.Psoon li{
+  margin-left: 40px;
+  align-items: flex-end;
+  flex-direction: column;
+  display: inline;
+}
+.PsoonField {
+  border: none;
+  font-weight: bold;
+}
+.PsoonField legend {
+  text-decoration: underline;
+}
+.m1 {
+  align-items: center;
+}
